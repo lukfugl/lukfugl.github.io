@@ -7,12 +7,6 @@
     <script src="https://unpkg.com/react-use-localstorage@3.1.2-alpha.1/dist/react-use-localstorage.es.production.js"></script>
     <!-- Your custom script here -->
     <script type="text/babel">
-      import React from 'react';
-      import ReactDOM from 'react-dom';
-      import useLocalStorage from 'react-use-localstorage';
-
-      import './styles.css';
-
       function App() {
         const [item, setItem] = useLocalStorage('name', 'Initial Value');
 
