@@ -4,30 +4,13 @@
     <!-- Load Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://unpkg.com/react@16.7.0/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-use-localstorage@3.1.2-alpha.1/dist/react-use-localstorage.es.production.js"></script>
     <!-- Your custom script here -->
     <script type="text/babel">
       function App() {
-        const [item, setItem] = useLocalStorage('name', 'Initial Value');
-
         return (
-          <div className="App">
-            <h1>Set Name to store in Local Storage</h1>
-            <div>
-              <label>
-                Name:{' '}
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={item}
-                  onChange={e => setItem(e.target.value)}
-                />
-              </label>
-            </div>
-          </div>
+          <h1>Hello World</h1>
         );
       }
-
       const rootElement = document.getElementById('root');
       ReactDOM.render(<App />, rootElement);
     </script>
