@@ -1,7 +1,5 @@
 'use strict';
 
-const fetch = require('fetch');
-
 class App extends React.Component {
   constructor(props) {
     super(props);
