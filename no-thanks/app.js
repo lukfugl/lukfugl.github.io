@@ -9,8 +9,11 @@ function serverRequest(body) {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...body, uid })
+      headers: {
+        'Content-Type': 'application/json',
+        'X-User-ID': uid,
+      },
+      body: JSON.stringify(body),
     });
   }).then(response => {
     if (!response.ok) {
@@ -55,7 +58,7 @@ class Launcher extends React.Component {
       return false;
     }
     this.setState({ disabled: true });
-    serverRequest({ JoinGame: { UserID: "", PlayerName: name, Slug: slug } }).then(() => {
+    serverRequest({ JoinGame: { PlayerName: name, Slug: slug } }).then(() => {
       this.redirectToGame(slug);
     }).catch(err => {
       console.error(err);
@@ -75,7 +78,7 @@ class Launcher extends React.Component {
       return false;
     }
     this.setState({ active: true });
-    serverRequest({ CreateGame: { HostUserID: "", PlayerName: name } }).then(({ slug }) => {
+    serverRequest({ CreateGame: { PlayerName: name } }).then(({ slug }) => {
       this.redirectToGame(slug);
     }).catch(err => {
       console.error(err);
