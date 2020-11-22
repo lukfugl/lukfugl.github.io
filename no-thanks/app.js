@@ -38,15 +38,16 @@ class Launcher extends React.Component {
     this.setState({ slug });
   }
 
-  joinGame() {
+  joinGame(event) {
+    event.preventDefault();
     const { name, slug } = this.state;
     if (!name) {
       this.setState({ error: "Name is required!" });
-      return;
+      return false;
     }
     if (!slug) {
       this.setState({ error: "Game ID is required to join game!" });
-      return;
+      return false;
     }
     this.setState({ disabled: true });
     serverRequest({ JoinGame: { UserID: "", PlayerName: name, Slug: slug } }).then(() => {
@@ -58,13 +59,15 @@ class Launcher extends React.Component {
         disabled: false,
       });
     });
+    return false;
   }
 
-  createGame() {
+  createGame(event) {
+    event.preventDefault();
     const { name } = this.state;
     if (!name) {
       this.toastError("Name is required!");
-      return;
+      return false;
     }
     this.setState({ active: true });
     serverRequest({ CreateGame: { HostUserID: "", PlayerName: name } }).then(resp => {
@@ -77,6 +80,7 @@ class Launcher extends React.Component {
         disabled: false,
       });
     });
+    return false;
   }
   
   render() {
@@ -86,11 +90,11 @@ class Launcher extends React.Component {
         {!!error ? (<div>{error}</div>) : ""}
 
         <h1>Join Game</h1>
-        <form onSubmit={() => this.joinGame()}>
+        <form onSubmit={e => this.joinGame(e)}>
           <label>
             Name:
             <input type="text" value={name} onChange={e => this.changeName(e.target.value)} />
-          </label>
+          </label><br/>
           <label>
             Game:
             <input type="text" value={slug} onChange={e => this.changeSlug(e.target.value)} />
@@ -99,7 +103,7 @@ class Launcher extends React.Component {
         </form>
 
         <h1>Create Game</h1>
-        <form onSubmit={() => this.createGame()}>
+        <form onSubmit={e => this.createGame(e)}>
           <label>
             Name:
             <input type="text" value={name} onChange={e => this.changeName(e.target.value)} />
