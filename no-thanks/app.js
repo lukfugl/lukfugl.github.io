@@ -50,7 +50,8 @@ class Launcher extends React.Component {
       return false;
     }
     this.setState({ disabled: true });
-    serverRequest({ JoinGame: { UserID: "", PlayerName: name, Slug: slug } }).then(() => {
+    serverRequest({ JoinGame: { UserID: "", PlayerName: name, Slug: slug } }).then(resp => {
+      console.log(resp);
       this.redirectToGame(slug);
     }).catch(err => {
       console.error(err);
