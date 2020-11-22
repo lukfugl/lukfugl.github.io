@@ -13,7 +13,7 @@ function serverRequest(body) {
       body: JSON.stringify({ ...body, uid })
     });
   }).then(response => {
-    if (!res.ok) {
+    if (!response.ok) {
       throw Error('Request rejected with status ${res.status}');
     }
     return response.json();
