@@ -1,6 +1,6 @@
 'use strict';
 
-const server = 'http://67.2.26.52:8080/';
+const server = 'https://67.2.26.52:8080/';
 
 function serverRequest(body) {
   return firebase.auth().signInAnonymously().then(cred => {
