@@ -12,6 +12,11 @@ function serverRequest(body) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...body, uid })
     });
+  }).then(response => {
+    if (!res.ok) {
+      throw Error('Request rejected with status ${res.status}');
+    }
+    return response.json();
   });
 }
 
@@ -50,8 +55,7 @@ class Launcher extends React.Component {
       return false;
     }
     this.setState({ disabled: true });
-    serverRequest({ JoinGame: { UserID: "", PlayerName: name, Slug: slug } }).then(resp => {
-      console.log(resp);
+    serverRequest({ JoinGame: { UserID: "", PlayerName: name, Slug: slug } }).then(() => {
       this.redirectToGame(slug);
     }).catch(err => {
       console.error(err);
@@ -71,8 +75,7 @@ class Launcher extends React.Component {
       return false;
     }
     this.setState({ active: true });
-    serverRequest({ CreateGame: { HostUserID: "", PlayerName: name } }).then(resp => {
-      const { slug } = resp.json();
+    serverRequest({ CreateGame: { HostUserID: "", PlayerName: name } }).then(({ slug }) => {
       this.redirectToGame(slug);
     }).catch(err => {
       console.error(err);
