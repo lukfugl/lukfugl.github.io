@@ -17,7 +17,7 @@ function serverRequest(body) {
     });
   }).then(response => {
     if (!response.ok) {
-      throw Error(`Request rejected with status ${res.status}`);
+      throw Error(`Request rejected with status ${response.status}`);
     }
     if (response.status == 204) {
       return;
